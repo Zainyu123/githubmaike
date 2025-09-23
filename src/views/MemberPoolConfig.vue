@@ -67,7 +67,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="createTime" label="创建时间" width="180" />
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="250" align="center">
           <template #default="scope">
             <el-button
               type="primary"
@@ -138,6 +138,14 @@
             :min="1"
             :max="10000"
             placeholder="请输入名额限制"
+          />
+        </el-form-item>
+        <el-form-item label="低阈值(%)" prop="lowThreshold">
+          <el-input-number
+            v-model="formData.lowThreshold"
+            :min="0"
+            :max="100"
+            placeholder="低于该比率进行预警"
           />
         </el-form-item>
         <el-form-item label="状态" prop="status">

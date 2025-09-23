@@ -194,6 +194,21 @@
           </el-col>
         </el-row>
 
+        <el-row :gutter="20">
+          <el-col :span="24">
+            <el-form-item label="所属资源池" prop="poolId">
+              <el-select v-model="formData.poolId" placeholder="请选择资源池" filterable style="width: 100%">
+                <el-option
+                  v-for="p in poolsStore.all"
+                  :key="p.id"
+                  :label="`${p.name}（${p.used}/${p.quota}，占用${poolsStore.usageRate(p.id)}%】`"
+                  :value="p.id"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
         <el-form-item label="套餐描述" prop="description">
           <el-input
             v-model="formData.description"
@@ -664,11 +679,13 @@
 import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { usePackagesStore } from '../stores/packages'
+import { usePoolsStore } from '../stores/pools'
 import { Plus, Search, Refresh } from '@element-plus/icons-vue'
 
 // 响应式数据
 const loading = ref(false)
 const packagesStore = usePackagesStore()
+const poolsStore = usePoolsStore()
 const showAddDialog = ref(false)
 const showCourseDialog = ref(false)
 const showAddCourseDialog = ref(false)
@@ -743,7 +760,8 @@ const formData = reactive({
   price: 0,
   duration: 365,
   description: '',
-  status: 'active'
+  status: 'active',
+  poolId: ''
 })
 
 // 详情数据
@@ -854,6 +872,9 @@ const formRules = {
   ],
   duration: [
     { required: true, message: '请输入有效期', trigger: 'blur' }
+  ],
+  poolId: [
+    { required: true, message: '请选择所属资源池', trigger: 'change' }
   ],
   status: [
     { required: true, message: '请选择状态', trigger: 'change' }
