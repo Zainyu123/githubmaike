@@ -30,6 +30,10 @@
             <el-icon><Document /></el-icon>
             <span>套餐详细</span>
           </el-menu-item>
+          <el-menu-item index="/resource-pools">
+            <el-icon><DataBoard /></el-icon>
+            <span>资源池管理</span>
+          </el-menu-item>
           <el-menu-item index="/course-management">
             <el-icon><Reading /></el-icon>
             <span>课程管理</span>

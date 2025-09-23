@@ -234,11 +234,11 @@
       width="500px"
     >
       <div class="payment-info">
-        <el-descriptions :column="1" border>
+      <el-descriptions :column="1" border>
           <el-descriptions-item label="用户ID">{{ payData.userId }}</el-descriptions-item>
           <el-descriptions-item label="用户名">{{ payData.userName }}</el-descriptions-item>
-          <el-descriptions-item label="当前套餐">{{ payData.currentPlan }}</el-descriptions-item>
-          <el-descriptions-item label="目标套餐">{{ payData.targetPlan }}</el-descriptions-item>
+        <el-descriptions-item label="当前资源池">{{ payData.currentPoolName || '-' }}</el-descriptions-item>
+        <el-descriptions-item label="目标资源池">{{ payData.targetPoolName || '-' }}</el-descriptions-item>
           <el-descriptions-item label="差价金额">
             <span class="price-large">¥{{ payData.priceDiff }}</span>
           </el-descriptions-item>
@@ -441,8 +441,10 @@ const formData = reactive({
 const payData = reactive({
   userId: '',
   userName: '',
-  currentPlan: '',
-  targetPlan: '',
+  currentPoolId: '',
+  currentPoolName: '',
+  targetPoolId: '',
+  targetPoolName: '',
   priceDiff: 0
 })
 
@@ -573,13 +575,14 @@ const handleRequestUpgrade = (row) => {
     userId: row.userId,
     currentPlan: row.currentPlan,
     targetPlan: row.targetPlan,
+    // 在资源池升级模型下，可附带资源池信息（此处演示使用套餐名映射）
     priceDiff: diff,
     status: 'awaiting_approval'
   })
   appendRecord({
     userId: row.userId,
     ownership: 'purchased',
-    action: '发起升级',
+    action: '发起资源池升级',
     currentPlan: row.currentPlan,
     targetPlan: row.targetPlan,
     priceDiff: diff,

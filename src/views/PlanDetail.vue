@@ -91,7 +91,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="createTime" label="创建时间" width="180" />
-        <el-table-column label="操作" width="250" fixed="right">
+        <el-table-column label="操作" width="250" align="center">
           <template #default="scope">
             <el-button
               type="primary"

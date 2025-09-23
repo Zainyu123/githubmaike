@@ -6,6 +6,7 @@ import QuotaDashboard from '../views/QuotaDashboard.vue'
 import PlanDetail from '../views/PlanDetail.vue'
 import CourseManagement from '../views/CourseManagement.vue'
 import UpgradeApprovals from '../views/UpgradeApprovals.vue'
+import ResourcePoolManagement from '../views/ResourcePoolManagement.vue'
 
 const routes = [
   {
@@ -46,6 +47,11 @@ const routes = [
     path: '/upgrade-approvals',
     name: 'UpgradeApprovals',
     component: UpgradeApprovals
+  },
+  {
+    path: '/resource-pools',
+    name: 'ResourcePoolManagement',
+    component: ResourcePoolManagement
   }
 ]
 
