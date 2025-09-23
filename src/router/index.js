@@ -5,6 +5,7 @@ import UserBinding from '../views/UserBinding.vue'
 import QuotaDashboard from '../views/QuotaDashboard.vue'
 import PlanDetail from '../views/PlanDetail.vue'
 import CourseManagement from '../views/CourseManagement.vue'
+import UpgradeApprovals from '../views/UpgradeApprovals.vue'
 
 const routes = [
   {
@@ -40,6 +41,11 @@ const routes = [
     path: '/course-management',
     name: 'CourseManagement',
     component: CourseManagement
+  },
+  {
+    path: '/upgrade-approvals',
+    name: 'UpgradeApprovals',
+    component: UpgradeApprovals
   }
 ]
 

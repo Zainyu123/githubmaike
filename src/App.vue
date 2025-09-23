@@ -34,6 +34,13 @@
             <el-icon><Reading /></el-icon>
             <span>课程管理</span>
           </el-menu-item>
+          <el-menu-item index="/upgrade-approvals">
+            <el-icon><TrendCharts /></el-icon>
+            <span>
+              升级审批
+              <el-badge v-if="pendingCount > 0" :value="pendingCount" class="menu-badge" />
+            </span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-container>
@@ -56,10 +63,24 @@
 
 <script setup>
 import { User, TrendCharts, Link, DataBoard, Document, Reading } from '@element-plus/icons-vue'
-import { computed } from 'vue'
+import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { useUpgradeStore } from './stores/upgrade'
 
 const route = useRoute()
+const upgradeStore = useUpgradeStore()
+const pendingCount = computed(() => upgradeStore.pendingCount)
+
+let badgeTimer = null
+onMounted(() => {
+  badgeTimer = setInterval(() => {
+    upgradeStore.refresh()
+  }, 10000)
+})
+
+onBeforeUnmount(() => {
+  if (badgeTimer) clearInterval(badgeTimer)
+})
 
 const getPageTitle = () => {
   const titleMap = {
@@ -68,7 +89,8 @@ const getPageTitle = () => {
     '/user-binding': '用户绑定',
     '/quota-dashboard': '名额看板',
     '/plan-detail': '套餐详细',
-    '/course-management': '课程管理'
+    '/course-management': '课程管理',
+    '/upgrade-approvals': '升级审批'
   }
   return titleMap[route.path] || '会员管理系统'
 }

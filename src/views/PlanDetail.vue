@@ -663,10 +663,12 @@
 <script setup>
 import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { usePackagesStore } from '../stores/packages'
 import { Plus, Search, Refresh } from '@element-plus/icons-vue'
 
 // 响应式数据
 const loading = ref(false)
+const packagesStore = usePackagesStore()
 const showAddDialog = ref(false)
 const showCourseDialog = ref(false)
 const showAddCourseDialog = ref(false)
@@ -1229,6 +1231,16 @@ const handleSubmit = async () => {
         id: `P${Date.now()}`
       }
       tableData.value.unshift(newItem)
+      // 保存到 thali_info（套餐配置）
+      packagesStore.addConfig({
+        id: newItem.id,
+        title: newItem.planName,
+        description: newItem.description,
+        price: newItem.price,
+        courseCount: newItem.courseCount,
+        status: newItem.status,
+        createTime: newItem.createTime,
+      })
       ElMessage.success('新增成功')
     }
     
